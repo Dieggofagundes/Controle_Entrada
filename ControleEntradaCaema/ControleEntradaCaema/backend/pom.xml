@@ -29,6 +29,12 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!-- Actuator: expõe /actuator/health, usado pelo healthcheck do Fly.io (fly.toml) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
         <!-- Validation -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

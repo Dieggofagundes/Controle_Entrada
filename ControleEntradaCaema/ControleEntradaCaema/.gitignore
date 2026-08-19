@@ -9,6 +9,13 @@ frontend/node_modules/
 frontend/dist/
 frontend/.env
 frontend/.env.local
+frontend/*.tsbuildinfo
+
+# E2E (Playwright)
+e2e/node_modules/
+e2e/test-results/
+e2e/playwright-report/
+e2e/.cache/
 
 # Geral
 .DS_Store

@@ -220,8 +220,11 @@ function NovoRegistroModal({
     <Modal aberto={aberto} titulo="Registrar entrada de visitante" onFechar={onFechar}>
       <form onSubmit={aoEnviar} className="space-y-4">
         <div>
-          <label className="label-field">Nome do visitante</label>
+          <label htmlFor="nomeVisitante" className="label-field">
+            Nome do visitante
+          </label>
           <input
+            id="nomeVisitante"
             className="input-field"
             autoFocus
             value={form.nomeVisitante}
@@ -232,8 +235,11 @@ function NovoRegistroModal({
 
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <label className="label-field">CPF</label>
+            <label htmlFor="cpf" className="label-field">
+              CPF
+            </label>
             <input
+              id="cpf"
               className="input-field font-mono"
               value={form.cpf}
               onChange={(e) => atualizarCampo('cpf', formatarCpf(e.target.value))}
@@ -242,8 +248,11 @@ function NovoRegistroModal({
             />
           </div>
           <div>
-            <label className="label-field">Telefone</label>
+            <label htmlFor="telefone" className="label-field">
+              Telefone
+            </label>
             <input
+              id="telefone"
               className="input-field font-mono"
               value={form.telefone}
               onChange={(e) => atualizarCampo('telefone', formatarTelefone(e.target.value))}
@@ -253,14 +262,24 @@ function NovoRegistroModal({
         </div>
 
         <div>
-          <label className="label-field">Endereco</label>
-          <input className="input-field" value={form.endereco} onChange={(e) => atualizarCampo('endereco', e.target.value)} />
+          <label htmlFor="endereco" className="label-field">
+            Endereco
+          </label>
+          <input
+            id="endereco"
+            className="input-field"
+            value={form.endereco}
+            onChange={(e) => atualizarCampo('endereco', e.target.value)}
+          />
         </div>
 
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <label className="label-field">Local da visita</label>
+            <label htmlFor="localVisita" className="label-field">
+              Local da visita
+            </label>
             <input
+              id="localVisita"
               className="input-field"
               value={form.localVisita}
               onChange={(e) => atualizarCampo('localVisita', e.target.value)}
@@ -268,8 +287,11 @@ function NovoRegistroModal({
             />
           </div>
           <div>
-            <label className="label-field">Numero do cracha</label>
+            <label htmlFor="numeroCracha" className="label-field">
+              Numero do cracha
+            </label>
             <input
+              id="numeroCracha"
               className="input-field font-mono"
               value={form.numeroCracha}
               onChange={(e) => atualizarCampo('numeroCracha', e.target.value)}
@@ -332,8 +354,11 @@ function RegistrarSaidaModal({
           </p>
 
           <div>
-            <label className="label-field">Hora de saida</label>
+            <label htmlFor="horaSaida" className="label-field">
+              Hora de saida
+            </label>
             <input
+              id="horaSaida"
               type="datetime-local"
               className="input-field"
               value={horaSaida}

@@ -1,10 +1,13 @@
 # Controle de Entrada CAEMA
 
+[![E2E](https://github.com/Dieggofagundes/Controle_Entrada/actions/workflows/controle-entrada-caema-e2e.yml/badge.svg)](https://github.com/Dieggofagundes/Controle_Entrada/actions/workflows/controle-entrada-caema-e2e.yml)
+
 Sistema de controle de entrada de visitantes e acompanhamento de plantao de servico,
 desenvolvido para uso interno da CAEMA.
 
 - **Backend**: Java 21 + Spring Boot 3.3 + PostgreSQL + JWT
 - **Frontend**: React + TypeScript + Vite + Tailwind CSS (responsivo: celular, tablet e desktop)
+- **Testes E2E**: Playwright (`e2e/`), rodando automaticamente no CI a cada push/PR
 - **Deploy sugerido**: backend no [Fly.io](https://fly.io), frontend no [Netlify](https://app.netlify.com)
 
 ---
@@ -42,7 +45,8 @@ desenvolvido para uso interno da CAEMA.
 ```
 ControleEntradaCaema/
 ├── backend/     -> API REST em Spring Boot (Java 21)
-└── frontend/    -> SPA em React + TypeScript (Vite)
+├── frontend/    -> SPA em React + TypeScript (Vite)
+└── e2e/         -> Testes end-to-end (Playwright), veja e2e/README.md
 ```
 
 Cada pasta tem seu proprio `README` implicito nas instrucoes abaixo. Sao dois deploys
@@ -86,6 +90,20 @@ npm install
 npm run dev
 ```
 Acesse `http://localhost:5173`.
+
+### 3.4. Testes E2E (opcional, mas recomendado antes de cada deploy)
+
+Com backend e frontend rodando (passos 3.2 e 3.3):
+
+```bash
+cd e2e
+npm install
+npx playwright install --with-deps chromium   # so na primeira vez
+npm test
+```
+
+Veja `e2e/README.md` para detalhes de cada teste e como rodar contra outros ambientes. Essa
+mesma suite roda automaticamente no CI (GitHub Actions) a cada push/PR.
 
 ---
 
@@ -206,5 +224,6 @@ gerada pelo Netlify, e rode `fly deploy` novamente para aplicar.
   frontend usam o horario local do navegador.
 - **Edicao/exclusao de registros de visitantes** e restrita a administradores; qualquer usuario
   logado pode registrar entrada e concluir saida.
-- Este projeto nao inclui testes automatizados (unitarios/integracao) para manter o escopo enxuto
-  na entrega inicial — e um bom proximo passo antes de expandir o sistema.
+- **Testes**: a suite E2E (`e2e/`, Playwright) cobre os fluxos principais ponta-a-ponta e roda no
+  CI a cada push/PR. O projeto ainda nao tem testes unitarios/integracao do backend
+  (`backend/src/test`) — bom proximo passo antes de expandir o sistema.

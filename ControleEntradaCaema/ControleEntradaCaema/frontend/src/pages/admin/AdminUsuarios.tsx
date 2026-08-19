@@ -269,8 +269,11 @@ function ModalCriarUsuario({ aberto, onFechar, onSucesso }: { aberto: boolean; o
     <Modal aberto={aberto} titulo="Novo usuario" onFechar={onFechar}>
       <form onSubmit={aoEnviar} className="space-y-4">
         <div>
-          <label className="label-field">Nome completo</label>
+          <label htmlFor="criar-nomeCompleto" className="label-field">
+            Nome completo
+          </label>
           <input
+            id="criar-nomeCompleto"
             className="input-field"
             autoFocus
             value={form.nomeCompleto}
@@ -279,8 +282,11 @@ function ModalCriarUsuario({ aberto, onFechar, onSucesso }: { aberto: boolean; o
           />
         </div>
         <div>
-          <label className="label-field">Nome de guerra</label>
+          <label htmlFor="criar-nomeGuerra" className="label-field">
+            Nome de guerra
+          </label>
           <input
+            id="criar-nomeGuerra"
             className="input-field"
             value={form.nomeGuerra}
             onChange={(e) => setForm({ ...form, nomeGuerra: e.target.value })}
@@ -289,8 +295,11 @@ function ModalCriarUsuario({ aberto, onFechar, onSucesso }: { aberto: boolean; o
         </div>
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <label className="label-field">Matricula</label>
+            <label htmlFor="criar-matricula" className="label-field">
+              Matricula
+            </label>
             <input
+              id="criar-matricula"
               className="input-field font-mono"
               value={form.matricula}
               onChange={(e) => setForm({ ...form, matricula: e.target.value })}
@@ -298,8 +307,11 @@ function ModalCriarUsuario({ aberto, onFechar, onSucesso }: { aberto: boolean; o
             />
           </div>
           <div>
-            <label className="label-field">Senha inicial</label>
+            <label htmlFor="criar-senha" className="label-field">
+              Senha inicial
+            </label>
             <input
+              id="criar-senha"
               type="password"
               className="input-field"
               minLength={6}
@@ -311,8 +323,15 @@ function ModalCriarUsuario({ aberto, onFechar, onSucesso }: { aberto: boolean; o
         </div>
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <label className="label-field">Funcao</label>
-            <select className="input-field" value={form.funcao} onChange={(e) => setForm({ ...form, funcao: e.target.value as Funcao })}>
+            <label htmlFor="criar-funcao" className="label-field">
+              Funcao
+            </label>
+            <select
+              id="criar-funcao"
+              className="input-field"
+              value={form.funcao}
+              onChange={(e) => setForm({ ...form, funcao: e.target.value as Funcao })}
+            >
               {FUNCOES.map((f) => (
                 <option key={f} value={f}>
                   {FUNCAO_LABEL[f]}
@@ -321,16 +340,31 @@ function ModalCriarUsuario({ aberto, onFechar, onSucesso }: { aberto: boolean; o
             </select>
           </div>
           <div>
-            <label className="label-field">Perfil</label>
-            <select className="input-field" value={form.perfil} onChange={(e) => setForm({ ...form, perfil: e.target.value as Perfil })}>
+            <label htmlFor="criar-perfil" className="label-field">
+              Perfil
+            </label>
+            <select
+              id="criar-perfil"
+              className="input-field"
+              value={form.perfil}
+              onChange={(e) => setForm({ ...form, perfil: e.target.value as Perfil })}
+            >
               <option value="USUARIO">Usuario</option>
               <option value="ADMIN">Administrador</option>
             </select>
           </div>
         </div>
         <div>
-          <label className="label-field">E-mail (opcional)</label>
-          <input type="email" className="input-field" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+          <label htmlFor="criar-email" className="label-field">
+            E-mail (opcional)
+          </label>
+          <input
+            id="criar-email"
+            type="email"
+            className="input-field"
+            value={form.email}
+            onChange={(e) => setForm({ ...form, email: e.target.value })}
+          />
         </div>
 
         <button type="submit" disabled={salvando} className="btn-primary w-full">
@@ -388,17 +422,40 @@ function ModalEditarUsuario({
       {form && (
         <form onSubmit={aoEnviar} className="space-y-4">
           <div>
-            <label className="label-field">Nome completo</label>
-            <input className="input-field" value={form.nomeCompleto} onChange={(e) => setForm({ ...form, nomeCompleto: e.target.value })} required />
+            <label htmlFor="editar-nomeCompleto" className="label-field">
+              Nome completo
+            </label>
+            <input
+              id="editar-nomeCompleto"
+              className="input-field"
+              value={form.nomeCompleto}
+              onChange={(e) => setForm({ ...form, nomeCompleto: e.target.value })}
+              required
+            />
           </div>
           <div>
-            <label className="label-field">Nome de guerra</label>
-            <input className="input-field" value={form.nomeGuerra} onChange={(e) => setForm({ ...form, nomeGuerra: e.target.value })} required />
+            <label htmlFor="editar-nomeGuerra" className="label-field">
+              Nome de guerra
+            </label>
+            <input
+              id="editar-nomeGuerra"
+              className="input-field"
+              value={form.nomeGuerra}
+              onChange={(e) => setForm({ ...form, nomeGuerra: e.target.value })}
+              required
+            />
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="label-field">Funcao</label>
-              <select className="input-field" value={form.funcao} onChange={(e) => setForm({ ...form, funcao: e.target.value as Funcao })}>
+              <label htmlFor="editar-funcao" className="label-field">
+                Funcao
+              </label>
+              <select
+                id="editar-funcao"
+                className="input-field"
+                value={form.funcao}
+                onChange={(e) => setForm({ ...form, funcao: e.target.value as Funcao })}
+              >
                 {FUNCOES.map((f) => (
                   <option key={f} value={f}>
                     {FUNCAO_LABEL[f]}
@@ -407,16 +464,30 @@ function ModalEditarUsuario({
               </select>
             </div>
             <div>
-              <label className="label-field">Perfil</label>
-              <select className="input-field" value={form.perfil} onChange={(e) => setForm({ ...form, perfil: e.target.value as Perfil })}>
+              <label htmlFor="editar-perfil" className="label-field">
+                Perfil
+              </label>
+              <select
+                id="editar-perfil"
+                className="input-field"
+                value={form.perfil}
+                onChange={(e) => setForm({ ...form, perfil: e.target.value as Perfil })}
+              >
                 <option value="USUARIO">Usuario</option>
                 <option value="ADMIN">Administrador</option>
               </select>
             </div>
           </div>
           <div>
-            <label className="label-field">Status</label>
-            <select className="input-field" value={form.status} onChange={(e) => setForm({ ...form, status: e.target.value as Usuario['status'] })}>
+            <label htmlFor="editar-status" className="label-field">
+              Status
+            </label>
+            <select
+              id="editar-status"
+              className="input-field"
+              value={form.status}
+              onChange={(e) => setForm({ ...form, status: e.target.value as Usuario['status'] })}
+            >
               <option value="ATIVO">Ativo</option>
               <option value="INATIVO">Inativo</option>
               <option value="PENDENTE">Pendente</option>
@@ -424,8 +495,16 @@ function ModalEditarUsuario({
             </select>
           </div>
           <div>
-            <label className="label-field">E-mail</label>
-            <input type="email" className="input-field" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+            <label htmlFor="editar-email" className="label-field">
+              E-mail
+            </label>
+            <input
+              id="editar-email"
+              type="email"
+              className="input-field"
+              value={form.email}
+              onChange={(e) => setForm({ ...form, email: e.target.value })}
+            />
           </div>
 
           <button type="submit" disabled={salvando} className="btn-primary w-full">
@@ -471,8 +550,11 @@ function ModalResetarSenha({ usuario, onFechar, onSucesso }: { usuario: Usuario 
             ele(a) por um canal seguro.
           </p>
           <div>
-            <label className="label-field">Nova senha</label>
+            <label htmlFor="nova-senha" className="label-field">
+              Nova senha
+            </label>
             <input
+              id="nova-senha"
               type="password"
               className="input-field"
               minLength={6}

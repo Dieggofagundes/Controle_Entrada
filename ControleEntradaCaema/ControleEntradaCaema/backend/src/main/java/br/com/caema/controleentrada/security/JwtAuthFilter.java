@@ -44,15 +44,21 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             return;
         }
 
-        if (matricula != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = userDetailsService.loadUserByUsername(matricula);
+        try {
+            if (matricula != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                UserDetails userDetails = userDetailsService.loadUserByUsername(matricula);
 
-            if (jwtService.tokenValido(token, userDetails)) {
-                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                        userDetails, null, userDetails.getAuthorities());
-                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authToken);
+                if (jwtService.tokenValido(token, userDetails)) {
+                    UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+                            userDetails, null, userDetails.getAuthorities());
+                    authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    SecurityContextHolder.getContext().setAuthentication(authToken);
+                }
             }
+        } catch (Exception e) {
+            // Token assinado corretamente mas para um usuario que nao existe mais (ex: excluido
+            // apos o token ter sido emitido). Segue sem autenticar, em vez de estourar erro 500.
+            SecurityContextHolder.clearContext();
         }
 
         filterChain.doFilter(request, response);
