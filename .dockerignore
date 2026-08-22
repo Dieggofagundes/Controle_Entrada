@@ -1,0 +1,60 @@
+# flyctl launch added from .gitignore
+# Backend
+**/backend/target
+**/backend/.mvn
+**/backend/*.iml
+**/backend/.idea
+
+# Frontend
+**/frontend/node_modules
+**/frontend/dist
+**/frontend/.env
+**/frontend/.env.local
+
+# Geral
+**/.DS_Store
+**/*.log
+**/.vscode
+
+# flyctl launch added from ControleEntradaCaema/.gitignore
+# Backend
+ControleEntradaCaema/**/backend/target
+ControleEntradaCaema/**/backend/.mvn
+ControleEntradaCaema/**/backend/*.iml
+ControleEntradaCaema/**/backend/.idea
+
+# Frontend
+ControleEntradaCaema/**/frontend/node_modules
+ControleEntradaCaema/**/frontend/dist
+ControleEntradaCaema/**/frontend/.env
+ControleEntradaCaema/**/frontend/.env.local
+ControleEntradaCaema/**/frontend/*.tsbuildinfo
+
+# E2E (Playwright)
+ControleEntradaCaema/**/e2e/node_modules
+ControleEntradaCaema/**/e2e/test-results
+ControleEntradaCaema/**/e2e/playwright-report
+ControleEntradaCaema/**/e2e/.cache
+
+# Geral
+ControleEntradaCaema/**/.DS_Store
+ControleEntradaCaema/**/*.log
+ControleEntradaCaema/**/.vscode
+
+# flyctl launch added from ControleEntradaCaema/frontend/.gitignore
+ControleEntradaCaema/frontend/**/node_modules
+ControleEntradaCaema/frontend/**/dist
+ControleEntradaCaema/frontend/**/.env
+ControleEntradaCaema/frontend/**/.env.local
+ControleEntradaCaema/frontend/**/*.log
+ControleEntradaCaema/frontend/**/.DS_Store
+ControleEntradaCaema/frontend/**/*.tsbuildinfo
+
+# flyctl launch added from frontend/.gitignore
+frontend/**/node_modules
+frontend/**/dist
+frontend/**/.env
+frontend/**/.env.local
+frontend/**/*.log
+frontend/**/.DS_Store
+fly.toml

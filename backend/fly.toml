@@ -1,0 +1,31 @@
+# fly.toml app configuration file generated for controle-entrada-caema-api on 2026-08-22T19:51:56-03:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'controle-entrada-caema-api'
+primary_region = 'gru'
+
+[build]
+[env]
+  PORT = '8080'
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 1
+  processes = ['app']
+
+  [[http_service.checks]]
+    interval = '15s'
+    timeout = '5s'
+    grace_period = '30s'
+    method = 'GET'
+    path = '/actuator/health'
+
+[[vm]]
+  memory = '512mb'
+  cpus = 1
+  memory_mb = 512
