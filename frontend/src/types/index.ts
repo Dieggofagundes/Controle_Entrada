@@ -1,4 +1,15 @@
-export type Funcao = 'CMD_DA_GUARDA' | 'GUARDA' | 'PATRULHEIRO' | 'MOTORISTA' | 'CMD_DE_VTR'
+export type Funcao =
+  | 'CMD_DA_GUARDA'
+  | 'GUARDA'
+  | 'PATRULHEIRO'
+  | 'MOTORISTA'
+  | 'CMD_DE_VTR'
+  | 'CMD_PELOTAO'
+  | 'CMD_GUARNICAO'
+  | 'ADMINISTRATIVO'
+  | 'SALA_DE_MEIO'
+  | 'SOINT'
+  | 'ADMIN_SISTEMA'
 
 export type Perfil = 'ADMIN' | 'USUARIO'
 
@@ -10,6 +21,12 @@ export const FUNCAO_LABEL: Record<Funcao, string> = {
   PATRULHEIRO: 'Patrulheiro',
   MOTORISTA: 'Motorista',
   CMD_DE_VTR: 'Cmd de VTR',
+  CMD_PELOTAO: 'Cmd Pelotão',
+  CMD_GUARNICAO: 'Cmd Guarnição',
+  ADMINISTRATIVO: 'Administrativo',
+  SALA_DE_MEIO: 'Sala de Meio',
+  SOINT: 'Soint',
+  ADMIN_SISTEMA: 'Admin do Sistema',
 }
 
 export const STATUS_LABEL: Record<StatusUsuario, string> = {

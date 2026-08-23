@@ -21,3 +21,6 @@ e2e/.cache/
 .DS_Store
 *.log
 .vscode/
+
+# Local Netlify folder
+.netlify
