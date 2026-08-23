@@ -29,7 +29,9 @@ public class DatabaseUrlEnvironmentPostProcessor implements EnvironmentPostProce
         String username = userInfo.length > 0 ? userInfo[0] : "";
         String password = userInfo.length > 1 ? userInfo[1] : "";
         int port = uri.getPort() > 0 ? uri.getPort() : 5432;
-        String jdbcUrl = "jdbc:postgresql://" + uri.getHost() + ":" + port + uri.getPath();
+        String query = uri.getRawQuery();
+        String jdbcUrl = "jdbc:postgresql://" + uri.getHost() + ":" + port + uri.getPath()
+                + (query != null && !query.isBlank() ? "?" + query : "");
 
         Map<String, Object> overrides = new LinkedHashMap<>();
         overrides.put("DATABASE_URL", jdbcUrl);
