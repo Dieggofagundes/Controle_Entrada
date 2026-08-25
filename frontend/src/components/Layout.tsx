@@ -67,7 +67,13 @@ export function Layout({ children }: { children: ReactNode }) {
         )}
       </aside>
 
-      <div className="flex min-h-screen flex-1 flex-col">
+      <div className="relative flex min-h-screen flex-1 flex-col overflow-hidden">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 -z-10 bg-[url('/caema-badge.jpg')] bg-center bg-no-repeat opacity-[0.06]"
+          style={{ backgroundSize: '480px' }}
+        />
+
         {/* Topbar - mobile */}
         <header className="flex items-center justify-between border-b border-border bg-navy px-4 py-3.5 text-white lg:hidden">
           <div className="flex items-center gap-2">
