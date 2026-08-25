@@ -27,13 +27,7 @@ export function AuthLayout({
         </div>
 
         <div className="relative max-w-md">
-          <p className="font-display text-3xl font-bold leading-tight">
-            Registro de acesso e controle de plantao, do posto de guarda ao relatorio final.
-          </p>
-          <p className="mt-4 text-sm text-white/70">
-            Sistema interno da CAEMA para controle de entrada de visitantes e acompanhamento dos plantoes
-            de servico.
-          </p>
+          <p className="text-sm text-white/70">Sistema interno da CAEMA para controle de entrada de visitantes.</p>
         </div>
 
         <p className="relative text-xs text-white/50">CAEMA &middot; Uso interno e restrito</p>
