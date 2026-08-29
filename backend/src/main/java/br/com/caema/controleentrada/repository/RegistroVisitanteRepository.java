@@ -19,8 +19,8 @@ public interface RegistroVisitanteRepository extends JpaRepository<RegistroVisit
             SELECT r FROM RegistroVisitante r
             WHERE (:apenasAbertos = false OR r.horaSaida IS NULL)
               AND (:cpf IS NULL OR r.cpf = :cpf)
-              AND (:nome IS NULL OR LOWER(r.nomeVisitante) LIKE LOWER(CONCAT('%', :nome, '%')))
-              AND (:localVisita IS NULL OR LOWER(r.localVisita) LIKE LOWER(CONCAT('%', :localVisita, '%')))
+          AND (:nome IS NULL OR LOWER(r.nomeVisitante) LIKE LOWER(CONCAT('%', CAST(:nome AS string), '%')))        
+                     AND (:localVisita IS NULL OR LOWER(r.localVisita) LIKE LOWER(CONCAT('%', CAST(:localVisita AS string), '%')))
               AND (:inicio IS NULL OR r.horaEntrada >= :inicio)
               AND (:fim IS NULL OR r.horaEntrada <= :fim)
             """)
