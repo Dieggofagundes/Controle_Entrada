@@ -23,7 +23,6 @@ public interface RegistroVisitanteRepository extends JpaRepository<RegistroVisit
               AND (:localVisita IS NULL OR LOWER(r.localVisita) LIKE LOWER(CONCAT('%', :localVisita, '%')))
               AND (:inicio IS NULL OR r.horaEntrada >= :inicio)
               AND (:fim IS NULL OR r.horaEntrada <= :fim)
-            ORDER BY r.horaEntrada DESC
             """)
     Page<RegistroVisitante> buscarComFiltros(@Param("apenasAbertos") boolean apenasAbertos,
                                               @Param("cpf") String cpf,
