@@ -21,8 +21,8 @@ public interface RegistroVisitanteRepository extends JpaRepository<RegistroVisit
               AND (:cpf IS NULL OR r.cpf = :cpf)
           AND (:nome IS NULL OR LOWER(r.nomeVisitante) LIKE LOWER(CONCAT('%', CAST(:nome AS string), '%')))        
                      AND (:localVisita IS NULL OR LOWER(r.localVisita) LIKE LOWER(CONCAT('%', CAST(:localVisita AS string), '%')))
-                          AND (:inicio IS NULL OR r.horaEntrada >= CAST(:inicio AS timestamp))
-                          AND (:fim IS NULL OR r.horaEntrada <= CAST(:fim AS timestamp))
+                                      AND r.horaEntrada >= :inicio
+                                      AND r.horaEntrada <= :fim
             """)
     Page<RegistroVisitante> buscarComFiltros(@Param("apenasAbertos") boolean apenasAbertos,
                                               @Param("cpf") String cpf,
@@ -34,8 +34,8 @@ public interface RegistroVisitanteRepository extends JpaRepository<RegistroVisit
 
     @Query("""
             SELECT r FROM RegistroVisitante r
-                        WHERE (:inicio IS NULL OR r.horaEntrada >= CAST(:inicio AS timestamp))
-                          AND (:fim IS NULL OR r.horaEntrada <= CAST(:fim AS timestamp))
+                                    WHERE r.horaEntrada >= :inicio
+                                      AND r.horaEntrada <= :fim
             ORDER BY r.horaEntrada DESC
             """)
     List<RegistroVisitante> buscarParaExportacao(@Param("inicio") LocalDateTime inicio,
