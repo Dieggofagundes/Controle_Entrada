@@ -12,6 +12,14 @@ RUN mvn clean package -DskipTests -B
 FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 
+# Fuso horario do container = Brasilia (o padrao da imagem e UTC). A JVM ja fixa seu fuso
+# padrao explicitamente em ControleEntradaApplication#main, mas isso tambem alinha timestamps
+# de SO/logs do container com o horario local.
+RUN apk add --no-cache tzdata \
+    && cp /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime \
+    && echo "America/Sao_Paulo" > /etc/timezone
+ENV TZ=America/Sao_Paulo
+
 RUN addgroup -S spring && adduser -S spring -G spring
 USER spring:spring
 
@@ -19,4 +27,4 @@ COPY --from=build /app/target/controle-entrada.jar app.jar
 
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-XX:+UseContainerSupport", "-XX:MaxRAMPercentage=75.0", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-XX:+UseContainerSupport", "-XX:MaxRAMPercentage=75.0", "-Duser.timezone=America/Sao_Paulo", "-jar", "app.jar"]

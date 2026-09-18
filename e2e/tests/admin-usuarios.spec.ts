@@ -9,6 +9,7 @@ test.describe('Gestao de usuarios pelo admin', () => {
     const nomeGuerra = 'DIRETO'
 
     await logarPelaUI(page, ADMIN_MATRICULA, ADMIN_SENHA)
+    await expect(page).toHaveURL('/')
     await page.goto('/admin/usuarios')
 
     await page.getByRole('button', { name: 'Novo usuario' }).click()
@@ -32,6 +33,7 @@ test.describe('Gestao de usuarios pelo admin', () => {
 
     // Admin reseta a senha do usuario.
     await logarPelaUI(page, ADMIN_MATRICULA, ADMIN_SENHA)
+    await expect(page).toHaveURL('/')
     await page.goto('/admin/usuarios')
     const linha = page.locator('div.flex.flex-col.gap-3.p-4', { hasText: matricula })
     await linha.getByTitle('Resetar senha').click()
@@ -47,6 +49,7 @@ test.describe('Gestao de usuarios pelo admin', () => {
 
     // Admin inativa o usuario; login deve passar a ser bloqueado.
     await logarPelaUI(page, ADMIN_MATRICULA, ADMIN_SENHA)
+    await expect(page).toHaveURL('/')
     await page.goto('/admin/usuarios')
     const linha2 = page.locator('div.flex.flex-col.gap-3.p-4', { hasText: matricula })
     await linha2.getByTitle('Inativar').click()

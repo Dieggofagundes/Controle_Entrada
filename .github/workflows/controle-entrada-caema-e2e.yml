@@ -3,18 +3,8 @@ name: Controle Entrada CAEMA - E2E
 on:
   push:
     branches: [main]
-    paths:
-      - 'ControleEntradaCaema/ControleEntradaCaema/**'
-      - '.github/workflows/controle-entrada-caema-e2e.yml'
-  pull_request:
-    paths:
-      - 'ControleEntradaCaema/ControleEntradaCaema/**'
-      - '.github/workflows/controle-entrada-caema-e2e.yml'
+  pull_request: {}
   workflow_dispatch: {}
-
-defaults:
-  run:
-    working-directory: ControleEntradaCaema/ControleEntradaCaema
 
 jobs:
   lint-e-build:
@@ -29,7 +19,7 @@ jobs:
           distribution: temurin
           java-version: '21'
           cache: maven
-          cache-dependency-path: ControleEntradaCaema/ControleEntradaCaema/backend/pom.xml
+          cache-dependency-path: backend/pom.xml
 
       - name: Configurar Node
         uses: actions/setup-node@v4
@@ -37,19 +27,19 @@ jobs:
           node-version: '20'
 
       - name: Compilar o backend
-        working-directory: ControleEntradaCaema/ControleEntradaCaema/backend
+        working-directory: backend
         run: mvn -B compile
 
       - name: Instalar dependencias do frontend
-        working-directory: ControleEntradaCaema/ControleEntradaCaema/frontend
+        working-directory: frontend
         run: npm ci
 
       - name: Lint do frontend
-        working-directory: ControleEntradaCaema/ControleEntradaCaema/frontend
+        working-directory: frontend
         run: npm run lint
 
       - name: Build do frontend
-        working-directory: ControleEntradaCaema/ControleEntradaCaema/frontend
+        working-directory: frontend
         run: npm run build
 
   e2e:
@@ -64,6 +54,8 @@ jobs:
           POSTGRES_DB: controle_entrada
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
+          TZ: America/Sao_Paulo
+          PGTZ: America/Sao_Paulo
         ports:
           - 5432:5432
         options: >-
@@ -73,6 +65,7 @@ jobs:
           --health-retries 10
 
     env:
+      TZ: America/Sao_Paulo
       DATABASE_URL: jdbc:postgresql://localhost:5432/controle_entrada
       DATABASE_USERNAME: postgres
       DATABASE_PASSWORD: postgres
@@ -96,7 +89,7 @@ jobs:
           distribution: temurin
           java-version: '21'
           cache: maven
-          cache-dependency-path: ControleEntradaCaema/ControleEntradaCaema/backend/pom.xml
+          cache-dependency-path: backend/pom.xml
 
       - name: Configurar Node
         uses: actions/setup-node@v4
@@ -104,11 +97,11 @@ jobs:
           node-version: '20'
 
       - name: Build do backend (sem testes unitarios, so empacota)
-        working-directory: ControleEntradaCaema/ControleEntradaCaema/backend
+        working-directory: backend
         run: mvn -B clean package -DskipTests
 
       - name: Subir o backend em background
-        working-directory: ControleEntradaCaema/ControleEntradaCaema/backend
+        working-directory: backend
         run: |
           nohup java -jar target/controle-entrada.jar > backend.log 2>&1 &
           echo "Aguardando /actuator/health..."
@@ -124,15 +117,15 @@ jobs:
           exit 1
 
       - name: Instalar dependencias do frontend
-        working-directory: ControleEntradaCaema/ControleEntradaCaema/frontend
+        working-directory: frontend
         run: npm ci
 
       - name: Build do frontend
-        working-directory: ControleEntradaCaema/ControleEntradaCaema/frontend
+        working-directory: frontend
         run: npm run build
 
       - name: Servir o frontend (preview) em background
-        working-directory: ControleEntradaCaema/ControleEntradaCaema/frontend
+        working-directory: frontend
         run: |
           nohup npm run preview -- --port 5173 --strictPort > frontend.log 2>&1 &
           echo "Aguardando o frontend responder..."
@@ -148,15 +141,15 @@ jobs:
           exit 1
 
       - name: Instalar dependencias do E2E
-        working-directory: ControleEntradaCaema/ControleEntradaCaema/e2e
+        working-directory: e2e
         run: npm ci
 
       - name: Instalar navegadores do Playwright
-        working-directory: ControleEntradaCaema/ControleEntradaCaema/e2e
+        working-directory: e2e
         run: npx playwright install --with-deps chromium
 
       - name: Rodar os testes E2E
-        working-directory: ControleEntradaCaema/ControleEntradaCaema/e2e
+        working-directory: e2e
         run: npm test
 
       - name: Publicar relatorio do Playwright
@@ -164,7 +157,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: playwright-report
-          path: ControleEntradaCaema/ControleEntradaCaema/e2e/playwright-report/
+          path: e2e/playwright-report/
           retention-days: 14
 
       - name: Publicar logs do backend/frontend em caso de falha
@@ -173,6 +166,6 @@ jobs:
         with:
           name: server-logs
           path: |
-            ControleEntradaCaema/ControleEntradaCaema/backend/backend.log
-            ControleEntradaCaema/ControleEntradaCaema/frontend/frontend.log
+            backend/backend.log
+            frontend/frontend.log
           retention-days: 14

@@ -23,6 +23,7 @@ test.describe('Controle de visitantes', () => {
     })
 
     await logarPelaUI(page, matricula, senha)
+    await expect(page).toHaveURL('/')
     await page.goto('/visitantes')
 
     const nomeVisitante = `Visitante Teste ${Date.now()}`
@@ -74,6 +75,7 @@ test.describe('Controle de visitantes', () => {
     })
 
     await logarPelaUI(page, matricula, senha)
+    await expect(page).toHaveURL('/')
     await page.goto('/visitantes')
 
     await page.getByRole('button', { name: 'Registrar entrada' }).click()
