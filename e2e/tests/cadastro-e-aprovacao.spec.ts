@@ -63,6 +63,7 @@ test.describe('Solicitacao de cadastro e aprovacao pelo admin', () => {
     await expect(page).toHaveURL(/\/solicitacao-enviada$/)
 
     await logarPelaUI(page, ADMIN_MATRICULA, ADMIN_SENHA)
+    await expect(page).toHaveURL('/')
     await page.goto('/admin/usuarios')
 
     page.once('dialog', (dialog) => dialog.accept())

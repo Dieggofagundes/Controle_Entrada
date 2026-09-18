@@ -9,6 +9,8 @@ backend (Spring Boot) + Postgres, sem mocks. Cobre os fluxos principais:
 - **plantao.spec.ts**: abrir e concluir plantao de servico, regra de "um plantao aberto por vez".
 - **visitantes.spec.ts**: registrar entrada/saida de visitante, validacao de CPF invalido.
 - **admin-usuarios.spec.ts**: admin cria usuario diretamente, reseta senha, inativa acesso.
+- **fuso-horario.spec.ts**: confirma que os horarios gravados pela API (horaEntrada, horaAssuncao)
+  correspondem ao horario real de Brasilia, e nao ao fuso do host onde o backend roda.
 
 Os testes usam matriculas geradas com timestamp (`matriculaUnica`) para nao colidir entre
 execucoes, e podem rodar contra qualquer banco (local ou de CI) sem precisar de reset manual.

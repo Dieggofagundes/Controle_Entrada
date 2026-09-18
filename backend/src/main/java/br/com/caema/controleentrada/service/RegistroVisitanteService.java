@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.UUID;
 
@@ -69,7 +70,11 @@ public class RegistroVisitanteService {
 
         LocalDateTime horaSaida = request.horaSaida() != null ? request.horaSaida() : LocalDateTime.now();
 
-        if (horaSaida.isBefore(registro.getHoraEntrada())) {
+        // Compara truncado ao minuto: o campo de hora no frontend (datetime-local) so tem
+        // precisao de minuto, enquanto horaEntrada foi gravada com segundos/nanos. Sem isso,
+        // uma saida registrada no mesmo minuto da entrada (comum em atendimentos rapidos) e
+        // injustamente rejeitada por "anterior" devido aos segundos zerados no envio.
+        if (horaSaida.isBefore(registro.getHoraEntrada().truncatedTo(ChronoUnit.MINUTES))) {
             throw new RegraDeNegocioException("A hora de saida nao pode ser anterior a hora de entrada");
         }
 

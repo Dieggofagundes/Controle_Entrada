@@ -47,6 +47,7 @@ test.describe('Plantao de servico', () => {
 
     await page.getByRole('button', { name: 'Concluir servico' }).click()
     await expect(page.getByText('Plantao concluido com sucesso.')).toBeVisible()
-    await expect(page.getByText('Concluido')).toBeVisible()
+    // exact:true evita casar com o toast acima, que tambem contem "concluido" como substring.
+    await expect(page.getByText('Concluido', { exact: true })).toBeVisible()
   })
 })

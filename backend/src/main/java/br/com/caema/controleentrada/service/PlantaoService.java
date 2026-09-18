@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -66,7 +67,11 @@ public class PlantaoService {
 
         LocalDateTime horaConclusao = request.horaConclusao() != null ? request.horaConclusao() : LocalDateTime.now();
 
-        if (horaConclusao.isBefore(plantao.getHoraAssuncao())) {
+        // Compara truncado ao minuto: o campo de hora no frontend (datetime-local) so tem
+        // precisao de minuto, enquanto horaAssuncao foi gravada com segundos/nanos. Sem isso,
+        // uma conclusao no mesmo minuto da assuncao e injustamente rejeitada por "anterior"
+        // devido aos segundos zerados no envio.
+        if (horaConclusao.isBefore(plantao.getHoraAssuncao().truncatedTo(ChronoUnit.MINUTES))) {
             throw new RegraDeNegocioException("A hora de conclusao nao pode ser anterior a hora de assuncao");
         }
 
